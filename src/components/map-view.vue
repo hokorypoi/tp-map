@@ -3,6 +3,7 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue'
 // import * as Cesium from "cesium";
 const Cesium = window.Cesium
 
@@ -21,9 +22,9 @@ const initMap = () => {
   })
 }
 
-setTimeout(() => {
+onMounted(() => {
   initMap()
-}, 300)
+})
 </script>
 
 <style lang="scss">
