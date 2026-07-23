@@ -39,8 +39,8 @@ async function initMap() {
   })
 
   // Add Cesium OSM Buildings, a global 3D buildings layer.
-  const buildingTileset = await Cesium.createOsmBuildingsAsync();
-  viewer.scene.primitives.add(buildingTileset);
+  // const buildingTileset = await Cesium.createOsmBuildingsAsync();
+  // viewer.scene.primitives.add(buildingTileset);
 }
 
 /**

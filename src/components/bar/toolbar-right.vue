@@ -3,11 +3,6 @@
     <div class="q-gutter-sm">
       <q-btn round color="dark" icon="shopping_cart" :size="btnSize" />
       <q-btn round color="dark" icon="navigation" :size="btnSize" />
-      <q-btn round color="dark" glossy icon="layers_clear" :size="btnSize" />
-      <q-btn round color="dark" icon="directions" :size="btnSize" />
-      <q-btn round color="dark" icon="edit_location" :size="btnSize" />
-      <q-btn round color="dark" glossy icon="local_grocery_store" :size="btnSize" />
-      <q-btn round color="dark" icon="my_location" :size="btnSize" />
     </div>
   </div>
 </template>

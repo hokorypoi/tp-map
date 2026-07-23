@@ -1,39 +1,54 @@
 <template>
   <div id="toolbar-right">
     <div class="q-gutter-sm">
-      <q-btn round color="dark" icon="home" :size="btnSize" @click="handleBtnClick('home')" />
+      <q-btn round color="dark" icon="home" :size="btnSize" @click="handleBtnClick('home')">
+        <q-tooltip> Home </q-tooltip>
+      </q-btn>
       <q-btn
         round
         color="dark"
         icon="navigation"
         :size="btnSize"
         @click="handleBtnClick('navigation')"
-      />
+      >
+        <q-tooltip> Draw Road </q-tooltip>
+      </q-btn>
+
       <q-btn
         round
         color="dark"
         icon="directions"
         :size="btnSize"
         @click="handleBtnClick('directions')"
-      />
+      >
+        <q-tooltip> Draw Road </q-tooltip>
+      </q-btn>
       <q-btn
         round
         color="dark"
         glossy
-        icon="layers_clear"
+        icon="directions_off"
         :size="btnSize"
-        @click="handleBtnClick('layers_clear')"
-      />
+        @click="handleBtnClick('directions_off')"
+      >
+        <q-tooltip> Draw Road Cancel </q-tooltip>
+      </q-btn>
 
-      <q-btn round color="dark" icon="edit_location" :size="btnSize" />
-      <q-btn round color="dark" glossy icon="local_grocery_store" :size="btnSize" />
+      <q-btn round color="dark" icon="add" :size="btnSize" @click="mainStore.toggleAddRoadDialog()">
+        <q-tooltip> Add Road </q-tooltip>
+      </q-btn>
+      <q-btn round color="dark" glossy icon="list_alt" :size="btnSize" @click="toggleListPanel">
+        <q-tooltip> Toggle List Panel </q-tooltip>
+      </q-btn>
       <q-btn
         round
         color="dark"
         icon="my_location"
         :size="btnSize"
         @click="handleBtnClick('my_location')"
-      />
+      >
+        <q-tooltip> My Location </q-tooltip>
+      </q-btn>
     </div>
   </div>
 </template>
@@ -41,6 +56,14 @@
 <script setup>
 import MapController from '@/api/cesium/controller/map-controller'
 import DrawTool from '@/api/cesium/tool/draw-tool'
+import { useMainStore } from '@/stores/main-store.js'
+
+const mainStore = useMainStore()
+
+function toggleListPanel() {
+  mainStore.toggleListPanel()
+}
+
 const btnSize = 'sm'
 
 function handleBtnClick(action) {
@@ -52,7 +75,7 @@ function handleBtnClick(action) {
       // Handle navigation action
       MapController.testFlyToPoint()
       break
-    case 'layers_clear':
+    case 'directions_off':
       // Handle layers clear action
       DrawTool.disableDrawTool()
       break
