@@ -6,13 +6,20 @@ let handler;
 let activeShapePoints = [];
 let activeShape;
 let floatingPoint;
+let finalShape;
+let finalShapePoints = [];
 let cartographicPositions;
+let viewer;
 
 /**
  * 启用绘制工具
  * @param {*} viewer
  */
-function initDrawTool(viewer) {
+function initDrawTool(viewerParam) {
+  if (!viewer) {
+    viewer = viewerParam;
+  }
+  clearDrawnShapes(); // Clear any previously drawn shapes
   disableDrawTool();
   // Disable the default left double click zoom behavior.
   viewer.cesiumWidget.screenSpaceEventHandler.removeInputAction(
@@ -64,6 +71,7 @@ function initDrawTool(viewer) {
     if (Cesium.defined(earthPosition)) {
       if (activeShapePoints.length === 0) {
         floatingPoint = createPoint(earthPosition);
+        finalShapePoints.push(floatingPoint);
         activeShapePoints.push(earthPosition);
         const dynamicPositions = new Cesium.CallbackProperty(function () {
           if (drawingMode === "polygon") {
@@ -74,7 +82,8 @@ function initDrawTool(viewer) {
         activeShape = drawShape(dynamicPositions);
       }
       activeShapePoints.push(earthPosition);
-      createPoint(earthPosition);
+      const point = createPoint(earthPosition);
+      finalShapePoints.push(point);
     }
   }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
@@ -92,7 +101,7 @@ function initDrawTool(viewer) {
   // Redraw the shape so it's not dynamic and remove the dynamic shape.
   function terminateShape() {
     activeShapePoints.pop();
-    drawShape(activeShapePoints);
+    finalShape = drawShape(activeShapePoints);
     console.log("绘制完成");
     console.log(activeShapePoints);
     // 转换为经纬度坐标
@@ -111,8 +120,10 @@ function initDrawTool(viewer) {
     // 清除绘制的图形
     viewer.entities.remove(floatingPoint);
     viewer.entities.remove(activeShape);
+    // viewer.entities.remove(finalShape);
     floatingPoint = undefined;
     activeShape = undefined;
+    // finalShape = undefined;
     activeShapePoints = [];
     disableDrawTool();
   }
@@ -133,9 +144,37 @@ function disableDrawTool() {
   }
 }
 
+/**
+ * 清除绘制的图形
+ */
+function clearDrawnShapes() {
+  if (floatingPoint) {
+    viewer.entities.remove(floatingPoint);
+    floatingPoint = undefined;
+  }
+  if (activeShape) {
+    viewer.entities.remove(activeShape);
+    activeShape = undefined;
+  }
+  if (finalShape) {
+    viewer.entities.remove(finalShape);
+    finalShape = undefined;
+  }
+  if (finalShapePoints.length > 0) {
+    // remove the final shape points from the viewer if needed
+    finalShapePoints.forEach(point => {
+      viewer.entities.remove(point);
+    });
+    finalShapePoints = [];
+  }
+  activeShapePoints = [];
+  cartographicPositions = [];
+}
+
 const DrawTool = {
   initDrawTool,
   disableDrawTool,
+  clearDrawnShapes,
 };
 
 export default DrawTool;

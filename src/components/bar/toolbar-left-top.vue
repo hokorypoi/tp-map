@@ -78,6 +78,7 @@ function handleBtnClick(action) {
     case 'directions_off':
       // Handle layers clear action
       DrawTool.disableDrawTool()
+      DrawTool.clearDrawnShapes() // Clear drawn shapes when the button is clicked
       break
     case 'directions':
       // Handle directions action
