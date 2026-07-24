@@ -106,7 +106,7 @@ function handleBtnClick(action) {
   top: 10px;
   left: 10px;
   width: 32px;
-  min-height: 200px;
+  min-height: 40px;
   background-color: transparent;
   border-radius: 3px;
   z-index: 1000;

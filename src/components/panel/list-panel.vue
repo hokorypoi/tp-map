@@ -14,8 +14,18 @@
                   square
                   size="sm"
                   color="dark"
+                  icon="location_searching"
+                  @click="focusRoad(item)"
+                >
+                  <q-tooltip>定位线路</q-tooltip>
+                </q-btn>
+                <q-btn
+                  dense
+                  square
+                  size="sm"
+                  color="dark"
                   icon="play_arrow"
-                  @click="handleItemClick(item)"
+                  @click="playRoad(item)"
                 >
                   <q-tooltip>播放动画</q-tooltip>
                 </q-btn>
@@ -77,7 +87,11 @@ async function fetchRoads() {
   }))
 }
 
-function handleItemClick(item) {
+function focusRoad(item) {
+  RoadController.zoomToRoad(JSON.parse(item.coordinates))
+}
+
+function playRoad(item) {
   // Handle item click event, e.g., zoom to the road on the map
   const rowData = {
     id: item.id,
@@ -142,7 +156,7 @@ watch(listPanelOpen, (newValue) => {
 
   .qsa {
     min-height: 200px;
-    height: 400px;
+    height: 200px;
     max-height: calc(100vh - 250px);
   }
 }

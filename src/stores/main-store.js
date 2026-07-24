@@ -3,7 +3,7 @@ import { defineStore, acceptHMRUpdate } from 'pinia'
 export const useMainStore = defineStore('main', {
   state: () => ({
     // counter: 0,
-    leftDrawerOpen: true,
+    leftDrawerOpen: false,
     listPanelOpen: false,
     addRoadDialogOpen: false,
   }),

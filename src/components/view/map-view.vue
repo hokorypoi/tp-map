@@ -21,4 +21,7 @@ onMounted(() => {
   width: 100%;
   height: calc(100vh - 50px);
 }
+.cesium-viewer-bottom {
+  display: none !important;
+}
 </style>

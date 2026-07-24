@@ -23,9 +23,9 @@ async function initMap() {
     // timeline: false, // 隐藏时间轴
     // animation: false, // 隐藏动画控件
     // baseLayerPicker: false, // 隐藏图层选择器
-    geocoder: false, // 隐藏地理编码器
+    geocoder: true, // 隐藏地理编码器
     homeButton: false, // 隐藏主页按钮
-    // infoBox: false, // 隐藏信息框
+    infoBox: false, // 隐藏信息框
     sceneModePicker: false, // 隐藏场景模式选择器
     selectionIndicator: false, // 隐藏选择指示器
     navigationHelpButton: false, // 隐藏导航帮助按钮
@@ -35,7 +35,7 @@ async function initMap() {
 
   // 设置相机视角
   viewer.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 10000000 * 1.5), // 设置相机位置和高度
+    destination: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 10000000 * 2), // 设置相机位置和高度
   })
 
   // Add Cesium OSM Buildings, a global 3D buildings layer.
@@ -55,7 +55,7 @@ function getViewer() {
  */
 function goHome() {
   viewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 10000000 * 1.5), // 设置相机位置和高度
+    destination: Cesium.Cartesian3.fromDegrees(116.39, 39.91, 10000000 * 2), // 设置相机位置和高度
     duration: 2, // 飞行时间，单位为秒
   })
 }
@@ -148,7 +148,39 @@ function testFlyToPoint() {
   loadModel();
 }
 
+/**
+ * 地球旋转
+ */
 
+let rotateId = null
+
+function startEarthRotate() {
+  if (!viewer || rotateId) {
+    return
+  }
+
+  function tick() {
+    viewer.camera.rotateRight(0.002)
+    rotateId = requestAnimationFrame(tick)
+  }
+
+  tick()
+}
+
+function stopEarthRotate() {
+  if (rotateId) {
+    cancelAnimationFrame(rotateId)
+    rotateId = null
+  }
+}
+
+function toggleAutoRotate() {
+  if (rotateId) {
+    stopEarthRotate()
+  } else {
+    startEarthRotate()
+  }
+}
 
 
 const MapController = {
@@ -157,6 +189,7 @@ const MapController = {
   goHome,
   goToMyLocation,
   testFlyToPoint,
+  toggleAutoRotate,
 }
 
 export default MapController;

@@ -24,7 +24,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered class="bg-dark" :width="280">
+    <q-drawer v-model="leftDrawerOpen" bordered class="bg-dark" :width="280">
       <q-scroll-area class="fit">
         <LeftDrawerContent />
       </q-scroll-area>

@@ -81,7 +81,10 @@ function loadModel(modelData) {
  * 定位到线路
  */
 function zoomToRoad(roadCoordinates) {
-  const positions = Cesium.Cartesian3.fromDegreesArray(roadCoordinates);
+  if (!viewer) {
+    viewer = MapController.getViewer()
+  }
+  const positions = Cesium.Cartesian3.fromDegreesArray(roadCoordinates.flatMap(r => ([r.longitude, r.latitude])));
   const boundingSphere = Cesium.BoundingSphere.fromPoints(positions);
   viewer.camera.flyToBoundingSphere(boundingSphere, {
     duration: 2, // Duration of the flight in seconds
@@ -163,10 +166,10 @@ function playRoadAnimation(roadData) {
       availability: new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({ start: start, stop: stop })]),
       position: positionProperty,
       // Attach the 3D model instead of the green point.
-      model: { uri: airplaneUri },
+      model: { uri: airplaneUri, minimumPixelSize: 200 },
       // Automatically compute the orientation from the position.
       orientation: new Cesium.VelocityOrientationProperty(positionProperty),
-      path: new Cesium.PathGraphics({ width: 3 }),
+      path: new Cesium.PathGraphics({ width: 5 }),
     });
     viewer.trackedEntity = airplaneEntity;
     animationModel = airplaneEntity;
