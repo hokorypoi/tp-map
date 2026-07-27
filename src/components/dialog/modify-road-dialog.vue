@@ -2,7 +2,6 @@
   <q-dialog
     :model-value="modifyRoadDialogData.open"
     persistent
-    :maximized="maximizedToggle"
     transition-show="slide-up"
     transition-hide="slide-down"
     @show="onShow()"

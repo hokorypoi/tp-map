@@ -163,7 +163,7 @@ watch(listPanelOpen, (newValue) => {
 
   .qsa {
     min-height: 200px;
-    height: 200px;
+    height: calc(100vh - 250px);
     max-height: calc(100vh - 250px);
   }
 }

@@ -2,7 +2,6 @@
   <q-dialog
     :model-value="coordinateConvertDialogOpen"
     persistent
-    :maximized="maximizedToggle"
     transition-show="slide-up"
     transition-hide="slide-down"
   >
@@ -25,7 +24,7 @@
                   dense
                   :model-value="file"
                   @update:model-value="onChooseFile"
-                  label="Pick one file"
+                  label="选择 .ovkml 文件"
                   outlined
                   accept=".ovkml"
                   style="max-width: 240px"
@@ -88,7 +87,7 @@ import NotifyTool from '@/tool/notify-tool'
 const mainStore = useMainStore()
 const { coordinateConvertDialogOpen } = storeToRefs(mainStore)
 
-const file = ref('')
+const file = ref([])
 
 const lineInput = ref('')
 const coordinates = ref('')
