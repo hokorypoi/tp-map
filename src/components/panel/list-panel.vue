@@ -156,7 +156,7 @@ watch(listPanelOpen, (newValue) => {
   max-height: calc(100vh - 240px);
   padding: 4px;
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 1000;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   overflow-y: auto;
