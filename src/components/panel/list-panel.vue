@@ -27,14 +27,21 @@
                 </q-btn>
               </q-btn-group>
               <q-separator vertical />
-              <q-btn-group>
+              <!-- <q-btn-group>
                 <q-btn dense square size="sm" color="dark" icon="color_lens">
                   <q-tooltip>线路样式</q-tooltip>
                 </q-btn>
               </q-btn-group>
-              <q-separator vertical />
+              <q-separator vertical /> -->
               <q-btn-group>
-                <q-btn dense square size="sm" color="dark" icon="drive_file_rename_outline">
+                <q-btn
+                  dense
+                  square
+                  size="sm"
+                  color="dark"
+                  icon="drive_file_rename_outline"
+                  @click="showModifyDialog(item)"
+                >
                   <q-tooltip>编辑线路</q-tooltip>
                 </q-btn>
                 <q-btn
@@ -98,6 +105,11 @@ function playRoad(item) {
 
 function stopAnimation() {
   RoadController.clearAnimation()
+}
+
+function showModifyDialog(item) {
+  mainStore.toggleListPanel()
+  mainStore.updateModifyRoadDialogData({ open: true, id: item.id })
 }
 
 function deleteRoad(item) {

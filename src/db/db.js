@@ -18,10 +18,24 @@ async function deleteRoad(id) {
   return db.roads.delete(id);
 }
 
+async function findById(id) {
+  return db.roads.where('id').equals(id).first();
+}
+
+async function modifyRoad({ id, name, coordinates, model_id }) {
+  db.roads.where("id").equals(id).modify((value, ref) => {
+    ref.value = {
+      name, coordinates, model_id
+    }
+  });
+}
+
 const DbInstance = {
   addRoad,
   getAllRoads,
   deleteRoad,
+  findById,
+  modifyRoad,
 };
 
 export default DbInstance;

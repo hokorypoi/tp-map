@@ -37,6 +37,7 @@
         <ToolbarLeftTop />
         <ListPanel />
         <AddRoadDialog />
+        <ModifyRoadDialog />
         <CoordinateConvertDialog />
       </div>
     </q-page-container>
@@ -51,6 +52,7 @@ import LeftDrawerContent from '@/components/content/left-drawer-content.vue'
 import HeaderRightContent from '@/components/content/header-right-content.vue'
 import ListPanel from '@/components/panel/list-panel.vue'
 import AddRoadDialog from '@/components/dialog/add-road-dialog.vue'
+import ModifyRoadDialog from '@/components/dialog/modify-road-dialog.vue'
 import CoordinateConvertDialog from '@/components/dialog/coordinate-convert-dialog.vue'
 import { useMainStore } from '@/stores/main-store.js'
 import { storeToRefs } from 'pinia'

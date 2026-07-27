@@ -5,7 +5,10 @@ export const useMainStore = defineStore('main', {
     // counter: 0,
     leftDrawerOpen: false,
     listPanelOpen: false,
+
     addRoadDialogOpen: false,
+    modifyRoadDialogData: { open: false, id: undefined },
+
     coordinateConvertDialogOpen: false,
   }),
 
@@ -26,6 +29,11 @@ export const useMainStore = defineStore('main', {
     toggleAddRoadDialog(open) {
       this.addRoadDialogOpen = open !== undefined ? open : !this.addRoadDialogOpen
     },
+    updateModifyRoadDialogData({ open, id }) {
+      this.modifyRoadDialogData = { open, id }
+    },
+
+
     toggleCoordinateConvertDialog(open) {
       this.coordinateConvertDialogOpen = open !== undefined ? open : !this.coordinateConvertDialogOpen
     },
