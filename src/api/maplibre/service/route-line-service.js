@@ -48,6 +48,7 @@ function addRouteLineAnimation(origin, destination) {
   var to = turf.point(destination);
 
   const lineDistance = turf.distance(from, to);
+  console.log(lineDistance)
 
   const arc = [];
 
@@ -88,8 +89,13 @@ function addRouteLineAnimation(origin, destination) {
     'type': 'line',
     'paint': {
       'line-width': 4,
-      'line-color': '#0003bf',
-      'line-opacity': 0.6
+      'line-color': '#bf0096',
+      'line-opacity': 0.8,
+      'line-dasharray': [3, 3]
+    },
+    layout: {
+      'line-cap': 'round',
+      'line-join': 'round'
     }
   });
 

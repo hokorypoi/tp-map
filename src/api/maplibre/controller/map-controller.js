@@ -54,17 +54,17 @@ function initMap() {
 
     AddLayerService.addCircle({ center: mapCenter, radius: 200 })
 
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZHongL, color: 'red' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZLaiL, color: 'yellow' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZLiuL, color: 'green' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineZHongL, color: '#e64a19' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineZLaiL, color: '#ffea00' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineZLiuL, color: '#2962ff' });
 
-    AddLayerService.addLine({ coordinates: AddLayerService.lineAnSiYanLiu, color: 'red' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineYanLiuFanQi, color: 'yellow' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineFanQi233, color: 'green' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineAnSiYanLiu, color: '#e64a19' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineYanLiuFanQi, color: '#ffea00' });
+    AddLayerService.addLine({ coordinates: AddLayerService.lineFanQi233, color: '#2962ff' });
 
 
     const dest1 = [115.92739762997735, 39.67915524950158];
-    const dest2 = [116.64716858769691, 40.39628778633252];
+    const dest2 = [116.54400374777367, 40.28781011167746];
 
     RouteLineService.addRouteLineAnimation(mapCenter, dest1);
     RouteLineService.addRouteLineAnimation(mapCenter, dest2);
@@ -72,6 +72,12 @@ function initMap() {
     PulsingDotService.addPulsingDotAnimation(mapCenter, 160, 500, '76, 175, 80');
     PulsingDotService.addPulsingDotAnimation(dest1, 160, 500);
     PulsingDotService.addPulsingDotAnimation(dest2, 160, 500);
+
+    // new Popup({ closeOnClick: false, closeButton: false })
+    //   .setLngLat(mapCenter)
+    //   .setHTML('')
+    //   .addTo(map);
+
   })
 }
 
