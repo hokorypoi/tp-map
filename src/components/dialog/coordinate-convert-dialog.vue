@@ -54,7 +54,11 @@
 
                 <q-btn dense color="secondary" @click="doConvert()" style="margin-left: 8px">
                   <q-icon name="build_circle" style="padding-right: 4px" />
-                  数据转换
+                  数据转换3维
+                </q-btn>
+                <q-btn dense color="secondary" @click="doConvert2()" style="margin-left: 8px">
+                  <q-icon name="build_circle" style="padding-right: 4px" />
+                  数据转换2维
                 </q-btn>
               </td>
             </tr>
@@ -153,6 +157,30 @@ function doConvert() {
         latitude: Number(tmpPoint[1]),
         height: 0,
       })
+      tmpPoint = []
+    }
+  }
+
+  coordinates.value = JSON.stringify(lineCoords)
+}
+
+function doConvert2() {
+  const lineStrValue = lineInput.value
+  if (!lineStrValue || lineStrValue === '') {
+    NotifyTool.showNotification('请输入要转换的坐标数据！', 'warning')
+    return
+  }
+  let lineStr = lineStrValue.replace(/,0/g, ',0,')
+  const lineArr = lineStr.split(',')
+  const lineJoinArr = []
+  const lineCoords = []
+  let tmpPoint = []
+  for (let i = 0; i < lineArr.length; i++) {
+    tmpPoint.push(Number(lineArr[i]))
+
+    if (tmpPoint.length == 3) {
+      lineJoinArr.push(JSON.parse(JSON.stringify(tmpPoint)))
+      lineCoords.push([Number(tmpPoint[0]), Number(tmpPoint[1])])
       tmpPoint = []
     }
   }
