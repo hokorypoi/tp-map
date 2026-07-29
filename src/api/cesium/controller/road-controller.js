@@ -23,6 +23,8 @@ const MODEL_LIST = [
   { id: 'truck', name: 'Truck', uri: './static/models/Cesium_Milk_Truck.glb', scale: 1 },
   { id: 'rx7_gt300', name: 'RX-7 GT300赛车', uri: './static/models/rx7_gt300.glb', scale: 0.2 },
   { id: 'oh_58d', name: 'OH–58D直升机', uri: './static/models/oh_58d.glb', scale: 1 },
+  { id: 'bus', name: '公共汽车', uri: './static/models/bus.glb', scale: 1 },
+  { id: '296_gt3', name: '法拉利296GT3', uri: './static/models/296_gt3.glb', scale: 100 },
 ]
 
 /**

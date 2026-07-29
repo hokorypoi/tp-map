@@ -32,28 +32,15 @@
 
     <q-page-container>
       <div id="page-inner" class="relative-position">
-        <MapView />
-        <ToolbarRight />
-        <ToolbarLeftTop />
-        <ListPanel />
-        <AddRoadDialog />
-        <ModifyRoadDialog />
-        <CoordinateConvertDialog />
+        <router-view />
       </div>
     </q-page-container>
   </q-layout>
 </template>
 
 <script setup>
-import MapView from '@/components/view/map-view.vue'
-import ToolbarRight from '@/components/bar/toolbar-right.vue'
-import ToolbarLeftTop from '@/components/bar/toolbar-left-top.vue'
 import LeftDrawerContent from '@/components/content/left-drawer-content.vue'
 import HeaderRightContent from '@/components/content/header-right-content.vue'
-import ListPanel from '@/components/panel/list-panel.vue'
-import AddRoadDialog from '@/components/dialog/add-road-dialog.vue'
-import ModifyRoadDialog from '@/components/dialog/modify-road-dialog.vue'
-import CoordinateConvertDialog from '@/components/dialog/coordinate-convert-dialog.vue'
 import { useMainStore } from '@/stores/main-store.js'
 import { storeToRefs } from 'pinia'
 
