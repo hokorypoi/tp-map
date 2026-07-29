@@ -98,7 +98,7 @@
           </div>
         </div>
 
-        <q-rating v-model="starsAF" :max="5" size="32px" />
+        <q-rating v-model="starsAF" :max="5" size="32px" color="amber-14" />
       </q-card-section>
 
       <q-card-section class="q-pt-none">
