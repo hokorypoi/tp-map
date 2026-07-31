@@ -7,12 +7,16 @@ import PulsingDotService from '../service/pulsing-dot-service'
 
 setWorkerUrl(workerUrl)
 
-const mapCenter = [116.77537345429118, 38.699435252482004];
+let mapCenter;
 
 let map;
 
 
 function initMap() {
+
+  const { center = [], list = [] } = window.appMaplibreConf;
+  mapCenter = center;
+
   map = new Map({
     container: 'maplibreMap', // container id
     zoom: 7,
@@ -52,26 +56,26 @@ function initMap() {
     const image = await map.loadImage('./static/imgs/avatar/plane_blue_48.png');
     map.addImage('cat', image.data);
 
+
+
     AddLayerService.addCircle({ center: mapCenter, radius: 200 })
-
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZHongL, color: '#e64a19' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZLaiL, color: '#ffea00' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineZLiuL, color: '#2962ff' });
-
-    AddLayerService.addLine({ coordinates: AddLayerService.lineAnSiYanLiu, color: '#e64a19' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineYanLiuFanQi, color: '#ffea00' });
-    AddLayerService.addLine({ coordinates: AddLayerService.lineFanQi233, color: '#2962ff' });
-
-
-    const dest1 = [115.92739762997735, 39.67915524950158];
-    const dest2 = [116.54400374777367, 40.28781011167746];
-
-    RouteLineService.addRouteLineAnimation(mapCenter, dest1);
-    RouteLineService.addRouteLineAnimation(mapCenter, dest2);
-
     PulsingDotService.addPulsingDotAnimation(mapCenter, 160, 500, '76, 175, 80');
-    PulsingDotService.addPulsingDotAnimation(dest1, 160, 500);
-    PulsingDotService.addPulsingDotAnimation(dest2, 160, 500);
+
+    list.forEach(node => {
+      const { type } = node;
+      if (type === 'line') {
+
+        const { lines = [], startPoint = [] } = node;
+        lines.forEach(line => {
+          const { coordinates, color } = line;
+          AddLayerService.addLine({ coordinates: coordinates, color: color });
+        })
+
+        RouteLineService.addRouteLineAnimation(mapCenter, startPoint);
+        PulsingDotService.addPulsingDotAnimation(startPoint, 160, 500);
+
+      }
+    });
 
     // new Popup({ closeOnClick: false, closeButton: false })
     //   .setLngLat(mapCenter)

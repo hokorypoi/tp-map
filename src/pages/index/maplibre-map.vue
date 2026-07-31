@@ -15,6 +15,7 @@ const $q = useQuasar()
 onMounted(() => {
   MapController.initMap()
   $q.dark.set(false) // or false or "auto"
+  console.log(window.appMaplibreConf)
 })
 
 onUnmounted(() => {
