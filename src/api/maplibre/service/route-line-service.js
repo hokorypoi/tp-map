@@ -3,6 +3,8 @@ import MapController from '../controller/map-controller';
 const turf = window.turf;
 
 let layerIdCounter = 0;
+let onMapLayerIds = [];
+let showRouteLineObjects = true;
 
 function addRouteLineAnimation(origin, destination) {
   const map = MapController.getMapObject();
@@ -83,8 +85,11 @@ function addRouteLineAnimation(origin, destination) {
     'data': point
   });
 
+  const lId1 = `route-line-layer-${layerIdCounter}`;
+  onMapLayerIds.push(lId1);
+
   map.addLayer({
-    'id': `route-line-layer-${layerIdCounter}`,
+    'id': lId1,
     'source': `route-line-source-${layerIdCounter}`,
     'type': 'line',
     'paint': {
@@ -99,10 +104,11 @@ function addRouteLineAnimation(origin, destination) {
     }
   });
 
-
+  const lId2 = `route-line-point-layer-${layerIdCounter}`
+  onMapLayerIds.push(lId2);
 
   map.addLayer({
-    'id': `route-line-point-layer-${layerIdCounter}`,
+    'id': lId2,
     'source': pointLayerSourceId,
     'type': 'symbol',
     'layout': {
@@ -170,8 +176,25 @@ function addRouteLineAnimation(origin, destination) {
 }
 
 
+function toggleRouteLineObjects(show) {
+  const toShow = show === undefined ? !showRouteLineObjects : show;
+  const map = MapController.getMapObject();
+  onMapLayerIds.forEach(layerId => {
+    if (map.getLayer(layerId)) {
+      map.setLayoutProperty(
+        layerId,
+        'visibility',
+        toShow ? 'visible' : 'none'
+      );
+    }
+  })
+  showRouteLineObjects = !showRouteLineObjects;
+}
+
+
 const RouteLineService = {
   addRouteLineAnimation,
+  toggleRouteLineObjects,
 
 }
 

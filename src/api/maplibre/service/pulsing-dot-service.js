@@ -1,6 +1,8 @@
 import MapController from '../controller/map-controller';
 
 let layerIdCounter = 0;
+let onMapLayerIds = [];
+let showPulsingDotObjects = true;
 
 function addPulsingDotAnimation(point, size = 200, duration = 1000, colorRGB = '255, 100, 100') {
   const map = MapController.getMapObject();
@@ -93,8 +95,12 @@ function addPulsingDotAnimation(point, size = 200, duration = 1000, colorRGB = '
       ]
     }
   });
+
+  const lId = `pulsing-dot-layer-${layerIdCounter}`;
+  onMapLayerIds.push(lId);
+
   map.addLayer({
-    'id': `pulsing-dot-layer-${layerIdCounter}`,
+    'id': lId,
     'type': 'symbol',
     'source': sourceId,
     'layout': {
@@ -106,8 +112,24 @@ function addPulsingDotAnimation(point, size = 200, duration = 1000, colorRGB = '
 
 }
 
+function togglePulsingDotObjects(show) {
+  const toShow = show === undefined ? !showPulsingDotObjects : show;
+  const map = MapController.getMapObject();
+  onMapLayerIds.forEach(layerId => {
+    if (map.getLayer(layerId)) {
+      map.setLayoutProperty(
+        layerId,
+        'visibility',
+        toShow ? 'visible' : 'none'
+      );
+    }
+  })
+  showPulsingDotObjects = !showPulsingDotObjects;
+}
+
 const PulsingDotService = {
   addPulsingDotAnimation,
+  togglePulsingDotObjects,
 }
 
 export default PulsingDotService;

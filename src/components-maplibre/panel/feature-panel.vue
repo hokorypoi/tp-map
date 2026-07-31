@@ -138,9 +138,6 @@ const fullscreenR = ref(false)
   top: 20px;
   z-index: 1000;
 }
-.maplibregl-ctrl-bottom-right {
-  display: none;
-}
 .my-card {
   border-radius: 20px;
   width: 400px;

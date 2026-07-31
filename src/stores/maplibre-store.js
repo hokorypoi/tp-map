@@ -4,6 +4,7 @@ export const useMaplibreStore = defineStore('maplibre', {
   state: () => ({
     // counter: 0,
     listPanelOpen: false,
+    featureInfoBoxState: { open: false, id: undefined }
   }),
 
   getters: {
@@ -16,6 +17,9 @@ export const useMaplibreStore = defineStore('maplibre', {
     // },
     toggleListPanel(open) {
       this.listPanelOpen = open !== undefined ? open : !this.listPanelOpen
+    },
+    updateFeatureInfoBoxState({ open, id }) {
+      this.featureInfoBoxState = { open, id }
     },
   },
 })

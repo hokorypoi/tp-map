@@ -6,8 +6,13 @@
     {
       name: '北京跑山-西线',
       type: 'line',
-      desc: '',
-      images: [],
+      subtitle: '周张路-六石路|红井路|涞宝路-G108-龙西公路',
+      distance: '580km',
+      desc: `途经房山几条比较知名的跑山路线。周张路比较干净，爬升不高。
+              周张路北上G108有三条线路可选，分别是红井路（有经典的网红弯）、六石路（摩友口碑不错）、涞宝路（凑合），
+              山里气温会低些，可能需要备件稍厚的衣服。路况还可以，路上有些石子啥的。
+              然后延G108绕紫荆关去龙西公路，最后是堪比高速的容易线。不走高速，全程580公里左右。个人评价3颗星。`,
+      images: ['/static/imgs/plans/long-xi.jpg', '/static/imgs/plans/hong-jing.jpg'],
       startPoint: [115.92739762997735, 39.67915524950158],
       lines: [
         {
@@ -35,8 +40,12 @@
     {
       name: '北京跑山-东线',
       type: 'line',
-      desc: '',
-      images: [],
+      subtitle: '安四路-范崎路-蓟县233咖啡',
+      distance: '660km',
+      desc: `安四路和范崎路是北京很有名的两条跑山线路，弯道多、路也很干净，追焦法师超多，跑了一圈数了下大概有7、8个。压弯技术好的摩友可以去试试，能获取美美的照片和视频。
+              这边的路况都很好，跑着超舒服。 最后是向东出京奔233咖啡。
+              没走高速，全程660公里左右。个人评价4颗星。`,
+      images: ['/static/imgs/plans/233.jpg', '/static/imgs/plans/233-01.jpg'],
       startPoint: [116.54400374777367, 40.28781011167746],
       lines: [
         {
@@ -65,9 +74,30 @@
     {
       name: '殊途同归机车俱乐部',
       type: 'point',
+      subtitle: '黄骅南大港',
+      distance: '150km',
       desc: '',
-      images: [],
-      coordinate: []
+      icon: '/static/imgs/plans/shutu-icon.jpg',
+      images: [
+        '/static/imgs/plans/shutu01.jpg',
+        '/static/imgs/plans/shutu03.jpg',
+        '/static/imgs/plans/shutu02.jpg',
+        '/static/imgs/plans/shutu04.jpg',
+        '/static/imgs/plans/shutu05.jpg',
+      ],
+      coordinates: [117.4797619992741, 38.52967276476011]
+    },
+    {
+      name: '南来北往骑行驿站',
+      type: 'point',
+      subtitle: '献县',
+      distance: '200km',
+      desc: '',
+      icon: '/static/imgs/plans/nanlai-icon.jpg',
+      images: [
+        '/static/imgs/plans/nanlai.jpg',
+      ],
+      coordinates: [116.10362704775036, 38.233566373675785]
     }
   ]
 
