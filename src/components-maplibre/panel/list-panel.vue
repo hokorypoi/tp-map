@@ -9,7 +9,7 @@
         @click="flyToFeature(item.id)"
       >
         <q-item-section avatar no-wrap>
-          <q-icon color="primary" name="flight_takeoff" size="20px" />
+          <q-icon name="flight_takeoff" size="20px" />
         </q-item-section>
         <q-item-section>
           <q-item-label>{{ item.label }}</q-item-label>

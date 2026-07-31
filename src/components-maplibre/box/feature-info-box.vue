@@ -8,7 +8,7 @@
         v-model="slideZL"
         infinite
         swipeable
-        autoplay
+        :autoplay="1500"
         arrows
         :style="`height: 225px;`"
       >
