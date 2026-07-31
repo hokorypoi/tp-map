@@ -22,7 +22,7 @@ function initMap() {
       sources: {
         satellite: {
           type: 'raster',
-          tiles: ['https://a.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'],
+          tiles: ['https://b.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'],
           // tiles: [
           //   'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg',
           // ],
@@ -89,6 +89,7 @@ function getMapObject() {
 const MapController = {
   initMap,
   getMapObject,
+  toggleBufferCircle: AddLayerService.toggleBufferCircle
 }
 
 export default MapController;

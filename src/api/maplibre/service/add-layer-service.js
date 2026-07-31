@@ -3,6 +3,9 @@ const turf = window.turf;
 import MapController from '../controller/map-controller';
 
 let layerIdCounter = 0;
+let showBufferCircle = true;
+const fillId = 'location-radius';
+const layerId = `location-radius-outline`
 
 function addCircle({ center, radius = 10 }) {
   const map = MapController.getMapObject();
@@ -21,7 +24,7 @@ function addCircle({ center, radius = 10 }) {
   });
 
   // Add a fill layer with some transparency
-  const fillId = 'ocation-radius';
+
   map.addLayer({
     id: fillId,
     type: 'fill',
@@ -32,7 +35,7 @@ function addCircle({ center, radius = 10 }) {
     }
   });
 
-  const layerId = `location-radius-outline`
+
 
   // Add a line layer to draw the circle outline
   map.addLayer({
@@ -54,23 +57,45 @@ function addCircle({ center, radius = 10 }) {
   let flag = false;
 
   setInterval(() => {
-    if (map.getLayer(layerId)) {
-      map.setLayoutProperty(
-        layerId,
-        'visibility',
-        flag ? 'visible' : 'none'
-      );
+    if (showBufferCircle) {
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(
+          layerId,
+          'visibility',
+          flag ? 'visible' : 'none'
+        );
+      }
+      if (map.getLayer(layerId)) {
+        map.setLayoutProperty(
+          fillId,
+          'visibility',
+          flag ? 'visible' : 'none'
+        );
+      }
+      flag = !flag;
     }
-    if (map.getLayer(layerId)) {
-      map.setLayoutProperty(
-        fillId,
-        'visibility',
-        flag ? 'visible' : 'none'
-      );
-    }
-    flag = !flag;
   }, 500);
 
+}
+
+function toggleBufferCircle(show) {
+  const toShow = show === undefined ? !showBufferCircle : show;
+  const map = MapController.getMapObject();
+  if (map.getLayer(layerId)) {
+    map.setLayoutProperty(
+      layerId,
+      'visibility',
+      toShow ? 'visible' : 'none'
+    );
+  }
+  if (map.getLayer(layerId)) {
+    map.setLayoutProperty(
+      fillId,
+      'visibility',
+      toShow ? 'visible' : 'none'
+    );
+  }
+  showBufferCircle = !showBufferCircle;
 }
 
 function addLine({ coordinates, color = '#ff4d4f' }) {
@@ -120,6 +145,7 @@ const lineFanQi233 = [[116.64756756, 40.41121207], [116.64756756, 40.41121207], 
 
 const AddLayerService = {
   addCircle,
+  toggleBufferCircle,
   addLine,
   lineZLiuL,
   lineZHongL,
