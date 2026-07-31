@@ -38,6 +38,11 @@
           {{ featureData ? featureData.desc : '' }}
         </div>
       </q-card-section>
+      <template v-if="featureData.nav">
+        <div>
+          <!-- <q-img :src="featureData.nav" fit="contain" style="height: 360px" /> -->
+        </div>
+      </template>
     </q-card>
   </div>
 </template>

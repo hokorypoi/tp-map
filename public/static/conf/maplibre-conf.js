@@ -4,7 +4,7 @@
 
   var list = [
     {
-      name: '殊途同归机车俱乐部',
+      name: '黄骅-殊途同归机车俱乐部',
       type: 'point',
       subtitle: '黄骅南大港',
       distance: '150km',
@@ -20,7 +20,7 @@
       coordinates: [117.4797619992741, 38.52967276476011]
     },
     {
-      name: '南来北往骑行驿站',
+      name: '献县-南来北往骑行驿站',
       type: 'point',
       subtitle: '献县',
       distance: '200km',
@@ -33,7 +33,7 @@
       coordinates: [116.10362704775036, 38.233566373675785]
     },
     {
-      name: '北京跑山-西线',
+      name: '北京-西线',
       type: 'line',
       subtitle: '周张路-六石路|红井路|涞宝路-G108-龙西公路',
       distance: '580km',
@@ -42,6 +42,7 @@
               山里气温会低些，可能需要备件稍厚的衣服。路况还可以，路上有些石子啥的。
               然后延G108绕紫荆关去龙西公路，最后是堪比高速的容易线。不走高速，全程580公里左右。个人评价3颗星。`,
       images: ['/static/imgs/plans/long-xi.jpg', '/static/imgs/plans/hong-jing.jpg'],
+      nav: '/static/imgs/plans/nav-jingxi.jpg',
       startPoint: [115.92739762997735, 39.67915524950158],
       lines: [
         {
@@ -67,7 +68,7 @@
       ]
     },
     {
-      name: '北京跑山-东线',
+      name: '北京-东线',
       type: 'line',
       subtitle: '安四路-范崎路-蓟县233咖啡',
       distance: '660km',
@@ -75,6 +76,7 @@
               这边的路况都很好，跑着超舒服。 最后是向东出京奔233咖啡。
               没走高速，全程660公里左右。个人评价4颗星。`,
       images: ['/static/imgs/plans/233.jpg', '/static/imgs/plans/233-01.jpg'],
+      nav: '/static/imgs/plans/nav-jingdong.jpg',
       startPoint: [116.54400374777367, 40.28781011167746],
       lines: [
         {
@@ -101,7 +103,7 @@
       ]
     },
     {
-      name: '运河河沿',
+      name: '沧州-运河河沿',
       type: 'line',
       subtitle: '安四路-范崎路-蓟县233咖啡',
       distance: '300km',
