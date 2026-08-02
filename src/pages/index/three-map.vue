@@ -1,5 +1,8 @@
 <template>
-  <div :id="ID"></div>
+  <div :id="ID">
+    <canvas id="c"></canvas>
+    <div id="three-toolbar-top-left"></div>
+  </div>
 </template>
 
 <script setup>
@@ -14,7 +17,7 @@ const { leftDrawerOpen } = storeToRefs(mainStore)
 const ID = 'three-container'
 
 onMounted(() => {
-  SceneController.initScene(ID)
+  SceneController.initScene()
 })
 
 watch(leftDrawerOpen, () => {
@@ -31,5 +34,22 @@ onBeforeUnmount(() => {
   width: 100%;
   height: calc(100vh - 50px);
   overflow: hidden;
+  position: relative;
+
+  #c {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  #three-toolbar-top-left {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 32px;
+    min-height: 40px;
+    background-color: black;
+    border-radius: 3px;
+  }
 }
 </style>

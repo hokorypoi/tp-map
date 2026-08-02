@@ -6,7 +6,6 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 
 
-let ID;
 let renderer = null
 let camera = null
 let scene = null
@@ -16,12 +15,13 @@ let resizeObserver = null
 const groundSize = 10000
 
 function resizeRenderer() {
-  const container = document.getElementById(ID)
-  if (!container || !renderer || !camera || !scene) return
+  if (!renderer || !camera || !scene) return
 
-  const rect = container.getBoundingClientRect()
-  const width = rect.width || container.clientWidth || 1
-  const height = rect.height || container.clientHeight || 1
+  const canvas = renderer.domElement
+
+  const rect = canvas.getBoundingClientRect()
+  const width = rect.width || canvas.clientWidth || 1
+  const height = rect.height || canvas.clientHeight || 1
 
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
   renderer.setSize(width, height, false)
@@ -42,24 +42,23 @@ function startRenderLoop() {
   renderer.setAnimationLoop(animate)
 }
 
-function initScene(containerID) {
-  ID = containerID;
-  const container = document.getElementById(ID)
-  if (!container) return
-
+function initScene() {
   scene = new THREE.Scene()
+  scene.background = new THREE.Color(0xAAAAAA);
 
   camera = new THREE.PerspectiveCamera(75, 1, 0.1, 10000)
   // camera.position.z = 5
   camera.position.set(50, 100, 80)
   camera.lookAt(0, 0, 0)
 
-  renderer = new THREE.WebGLRenderer({ antialias: true })
+  const canvas = document.querySelector('#c');
+
+  renderer = new THREE.WebGLRenderer({ antialias: true, canvas })
   renderer.setClearColor(0x111111, 1)
   renderer.domElement.style.display = 'block'
   renderer.domElement.style.width = '100%'
   renderer.domElement.style.height = '100%'
-  container.appendChild(renderer.domElement)
+  // container.appendChild(renderer.domElement)
 
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
@@ -79,7 +78,7 @@ function initScene(containerID) {
   resizeObserver = new ResizeObserver(() => {
     resizeRenderer()
   })
-  resizeObserver.observe(container)
+  resizeObserver.observe(canvas)
 
   requestAnimationFrame(() => {
     resizeRenderer()
@@ -126,7 +125,7 @@ function addLight() {
   scene.add(ambientLight);
 
   const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
-  directionalLight.position.set(1, 0.75, 0.5).normalize();
+  directionalLight.position.set(-100, 100, 100).normalize();
   scene.add(directionalLight);
 }
 
