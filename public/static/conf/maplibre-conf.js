@@ -63,7 +63,7 @@
       type: 'point',
       subtitle: '天津滨海-妈祖文化园',
       distance: '240km',
-      desc: '一直向东走到头就是妈祖文化园，可以听海发呆，上次去的时候东边围墙外有一窝很肥的小猫。有很多钓鱼佬。',
+      desc: '一直向东走到头就是妈祖文化园，可以听海吹风发呆，上次去的时候东边围墙外有一窝很肥的小猫。有很多钓鱼佬。',
       icon: '/static/imgs/plans/dongdi-icon.jpg',
       images: [
         '/static/imgs/plans/dongdi01.jpg',

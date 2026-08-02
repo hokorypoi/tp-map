@@ -51,5 +51,12 @@ const links1 = [
       router.push('/maplibre-map')
     },
   },
+  {
+    icon: 'view_in_ar',
+    text: 'ThreeJS',
+    onClick: function () {
+      router.push('/three-map')
+    },
+  },
 ]
 </script>
