@@ -60,6 +60,11 @@
                   <q-icon name="build_circle" style="padding-right: 4px" />
                   数据转换2维
                 </q-btn>
+
+                <q-btn dense color="secondary" @click="doReverse()" style="margin-left: 8px">
+                  <q-icon name="build_circle" style="padding-right: 4px" />
+                  数组反转
+                </q-btn>
               </td>
             </tr>
             <tr>
@@ -134,6 +139,17 @@ async function parseXmlFile(file) {
 
 function doClear() {
   lineInput.value = ''
+  coordinates.value = ''
+}
+
+function doReverse() {
+  const cv = coordinates.value
+  if (!cv || cv === '') {
+    NotifyTool.showNotification('请先转换数据！', 'warning')
+    return
+  }
+  const arr = JSON.parse(cv)
+  coordinates.value = JSON.stringify(arr.reverse())
 }
 
 function doConvert() {
