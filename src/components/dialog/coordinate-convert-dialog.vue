@@ -52,17 +52,17 @@
                   清空
                 </q-btn>
 
-                <q-btn dense color="secondary" @click="doConvert()" style="margin-left: 8px">
-                  <q-icon name="build_circle" style="padding-right: 4px" />
-                  数据转换3维
+                <q-btn dense color="secondary" @click="doConvert()" style="margin-left: 16px">
+                  <q-icon name="filter_3" style="padding-right: 4px" />
+                  转换3维
                 </q-btn>
-                <q-btn dense color="secondary" @click="doConvert2()" style="margin-left: 8px">
-                  <q-icon name="build_circle" style="padding-right: 4px" />
-                  数据转换2维
+                <q-btn dense color="secondary" @click="doConvert2()" style="margin-left: 16px">
+                  <q-icon name="filter_2" style="padding-right: 4px" />
+                  转换2维
                 </q-btn>
 
-                <q-btn dense color="secondary" @click="doReverse()" style="margin-left: 8px">
-                  <q-icon name="build_circle" style="padding-right: 4px" />
+                <q-btn dense color="secondary" @click="doReverse()" style="margin-left: 16px">
+                  <q-icon name="fast_rewind" style="padding-right: 4px" />
                   数组反转
                 </q-btn>
               </td>

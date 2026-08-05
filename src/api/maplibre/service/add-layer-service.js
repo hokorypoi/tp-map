@@ -7,6 +7,8 @@ let showBufferCircle = true;
 const fillId = 'location-radius';
 const layerId = `location-radius-outline`
 
+let flashInterval;
+
 function addCircle({ center, radius = 10 }) {
   const map = MapController.getMapObject();
 
@@ -56,7 +58,11 @@ function addCircle({ center, radius = 10 }) {
 
   let flag = false;
 
-  setInterval(() => {
+  if (flashInterval) {
+    clearInterval(flashInterval);
+  }
+
+  flashInterval = setInterval(() => {
     if (showBufferCircle) {
       if (map.getLayer(layerId)) {
         map.setLayoutProperty(

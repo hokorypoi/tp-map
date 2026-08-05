@@ -20,6 +20,10 @@
       <q-icon name="view_list" :size="iconSize" />
       <q-tooltip>List</q-tooltip>
     </q-btn>
+    <q-btn dense @click="store.toggleBasemapPanel()" style="margin-left: 4x">
+      <q-icon name="layers" :size="iconSize" />
+      <q-tooltip>Layers</q-tooltip>
+    </q-btn>
     <q-btn
       dense
       @click="store.updateFeatureInfoBoxState({ open: false, id: '' })"

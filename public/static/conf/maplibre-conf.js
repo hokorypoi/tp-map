@@ -210,5 +210,119 @@
   window.appMaplibreConf = {
     center,
     list,
+    basemaps: [
+      {
+        name: '街道',
+        icon: '',
+        style: {
+          version: 8,
+          sources: {
+            basemap_: {
+              type: 'raster',
+              tiles: ['https://b.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'],
+              tileSize: 256,
+            },
+          },
+          layers: [
+            {
+              id: 'basemap_',
+              type: 'raster',
+              source: 'basemap_',
+            },
+          ],
+        },
+      },
+      {
+        name: '卫星',
+        icon: '',
+        style: {
+          version: 8,
+          sources: {
+            basemap_: {
+              type: 'raster',
+              tiles: ["https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg"],
+              tileSize: 256,
+            },
+          },
+          layers: [
+            {
+              id: 'basemap_',
+              type: 'raster',
+              source: 'basemap_',
+            },
+          ],
+        },
+      },
+      {
+        name: '高德矢量|在线',
+        icon: 'amap-vector-online.png',
+        style: {
+          "version": 8,
+          "sources": {
+            "raster-tiles": {
+              "type": "raster",
+              "tiles": [
+                "http://webrd01.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=8&x={x}&y={y}&z={z}"
+              ],
+              "tileSize": 256,
+              "attribution": ""
+            }
+          },
+          "layers": [
+            {
+              "id": "simple-tiles",
+              "type": "raster",
+              "source": "raster-tiles",
+              "minzoom": 2,
+              "maxzoom": 19
+            }
+          ]
+        }
+
+      },
+      {
+        name: '高德卫星|在线',
+        icon: 'amap-satellite-online.jpg',
+        style: {
+          "version": 8,
+          "sources": {
+            "raster-tiles": {
+              "type": "raster",
+              "tiles": [
+                "http://webst01.is.autonavi.com/appmaptile?style=6&x={x}&y={y}&z={z}"
+              ],
+              "tileSize": 256,
+              "attribution": ""
+            },
+            "raster-tiles1": {
+              "type": "raster",
+              "tiles": [
+                "http://webst01.is.autonavi.com/appmaptile?x={x}&y={y}&z={z}&lang=zh_cn&size=1&scale=1&style=8"
+              ],
+              "tileSize": 256,
+              "attribution": ""
+            }
+          },
+          "layers": [
+            {
+              "id": "simple-tiles",
+              "type": "raster",
+              "source": "raster-tiles",
+              "minzoom": 2,
+              "maxzoom": 19
+            },
+            {
+              "id": "simple-tiles1",
+              "type": "raster",
+              "source": "raster-tiles1",
+              "minzoom": 2,
+              "maxzoom": 19
+            }
+          ]
+        }
+
+      },
+    ],
+    basemapIndex: 0,
   }
 })()

@@ -16,36 +16,19 @@ let map;
 let dataList = [];
 let dataHash = {};
 
+let mapOnMapMoveEndEvents = {};
+
 
 function initMap() {
 
-  const { center = [], list = [] } = window.appMaplibreConf;
+  const { center = [], basemaps = [], basemapIndex = 0 } = window.appMaplibreConf;
   mapCenter = center;
 
   map = new Map({
     container: 'maplibreMap', // container id
     zoom: 7,
     center: mapCenter,
-    style: {
-      version: 8,
-      sources: {
-        satellite: {
-          type: 'raster',
-          tiles: ['https://b.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png'],
-          // tiles: [
-          //   'https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2020_3857/default/g/{z}/{y}/{x}.jpg',
-          // ],
-          tileSize: 256,
-        },
-      },
-      layers: [
-        {
-          id: 'satellite',
-          type: 'raster',
-          source: 'satellite',
-        },
-      ],
-    },
+    style: basemaps[basemapIndex].style,
   })
 
   // The `click` event is an example of a `MapMouseEvent`.
@@ -57,53 +40,9 @@ function initMap() {
   });
 
   map.on('load', async () => {
-
     const image = await map.loadImage('./static/imgs/avatar/plane_blue_48.png');
     map.addImage('cat', image.data);
-
-
-
-    AddLayerService.addCircle({ center: mapCenter, radius: 200 })
-    PulsingDotService.addPulsingDotAnimation(mapCenter, 160, 500, '76, 175, 80');
-
-    list.forEach((node, index) => {
-      const { type } = node;
-      const id = `${index}`;
-      dataList.push({
-        ...node,
-        id
-      })
-      dataHash[id] = node;
-      if (type === 'line') {
-
-        const { lines = [], startPoint = [] } = node;
-        lines.forEach(line => {
-          const { coordinates, color } = line;
-          AddLayerService.addLine({ coordinates: coordinates, color: color });
-        })
-
-        RouteLineService.addRouteLineAnimation(mapCenter, startPoint);
-        PulsingDotService.addPulsingDotAnimation(startPoint, 160, 500);
-      }
-      if (type === 'point') {
-        // create a DOM element for the marker
-        const el = document.createElement('div');
-        el.className = 'maplibre-marker';
-        el.style.backgroundImage =
-          `url('${node.icon || "./static/imgs/avatar/rikka.gif"}')`;
-        el.style.width = `64px`;
-        el.style.height = `64px`;
-
-        el.addEventListener('click', () => {
-          console.log('click')
-        });
-
-        // add marker to map
-        new Marker({ element: el })
-          .setLngLat(node.coordinates)
-          .addTo(map);
-      }
-    });
+    renderLayers();
 
     // new Popup({ closeOnClick: false, closeButton: false })
     //   .setLngLat(mapCenter)
@@ -111,6 +50,74 @@ function initMap() {
     //   .addTo(map);
 
   })
+
+  map.on('moveend', onMapViewportStateChanged);
+}
+
+function addEventToMapMoveEnd(key, event) {
+  mapOnMapMoveEndEvents[key] = event;
+}
+
+function removeEventFromMapMoveEnd(key) {
+  delete mapOnMapMoveEndEvents[key];
+}
+
+function onMapViewportStateChanged() {
+  const { zoom, center } = getMapViewportInfo();
+  for (const key in mapOnMapMoveEndEvents) {
+    const fn = mapOnMapMoveEndEvents[key];
+    fn({ zoom, center });
+  }
+}
+
+async function renderLayers() {
+
+  dataList = [];
+  dataHash = {};
+
+  const { list = [] } = window.appMaplibreConf
+
+  AddLayerService.addCircle({ center: mapCenter, radius: 200 })
+  PulsingDotService.addPulsingDotAnimation(mapCenter, 160, 500, '76, 175, 80');
+
+  list.forEach((node, index) => {
+    const { type } = node;
+    const id = `${index}`;
+    dataList.push({
+      ...node,
+      id
+    })
+    dataHash[id] = node;
+    if (type === 'line') {
+
+      const { lines = [], startPoint = [] } = node;
+      lines.forEach(line => {
+        const { coordinates, color } = line;
+        AddLayerService.addLine({ coordinates: coordinates, color: color });
+      })
+
+      RouteLineService.addRouteLineAnimation(mapCenter, startPoint);
+      PulsingDotService.addPulsingDotAnimation(startPoint, 160, 500);
+    }
+    if (type === 'point') {
+      // create a DOM element for the marker
+      const el = document.createElement('div');
+      el.className = 'maplibre-marker';
+      el.style.backgroundImage =
+        `url('${node.icon || "./static/imgs/avatar/rikka.gif"}')`;
+      el.style.width = `64px`;
+      el.style.height = `64px`;
+
+      el.addEventListener('click', () => {
+        console.log('click')
+      });
+
+      // add marker to map
+      new Marker({ element: el })
+        .setLngLat(node.coordinates)
+        .addTo(map);
+    }
+  });
 }
 
 function getMapObject() {
@@ -118,7 +125,7 @@ function getMapObject() {
 }
 
 function getDataList() {
-  return dataList.map(r => ({ label: r.name, id: r.id }))
+  return dataList.map(r => ({ label: r.name, id: r.id, type: r.type }))
 }
 
 function getDataById(id) {
@@ -151,6 +158,55 @@ function goHome() {
   map.flyTo({ center: mapCenter, zoom: 7 })
 }
 
+function getBasemapData() {
+  const { basemaps = [], basemapIndex = 0 } = window.appMaplibreConf;
+  return {
+    index: basemapIndex,
+    list: basemaps.map(r => ({ name: r.name, icon: r.icon, style: r.style }))
+  }
+}
+
+function setBasemap(index) {
+  const { basemaps = [] } = window.appMaplibreConf
+  const style = basemaps[index].style;
+  // const oldStyle = map.getStyle();
+  // const keyWord = 'basemap_';
+
+  // let newLayers = style.layers.slice();
+
+  // oldStyle.layers.forEach(layer => {
+  //   const { id } = layer;
+  //   if (id.indexOf(keyWord) === -1) {
+  //     newLayers.push(layer);
+  //   }
+  // })
+
+  // let newSources = {
+  //   ...style.sources,
+  // }
+
+  // for (const id in oldStyle.sources) {
+  //   if (id.indexOf(keyWord) === -1) {
+  //     newSources[id] = oldStyle.sources[id]
+  //   }
+  // }
+
+  // let newStyle = {
+  //   ...oldStyle,
+  //   layers: newLayers,
+  //   sources: newSources
+  // }
+
+  // map.setStyle(newStyle, { diff: false });
+  map.setStyle(style);
+  renderLayers();
+}
+
+function getMapViewportInfo() {
+  const zoom = map.getZoom();
+  const center = map.getCenter();
+  return { zoom, center };
+}
 
 const MapController = {
   initMap,
@@ -162,6 +218,11 @@ const MapController = {
   flyToById,
   getDataById,
   goHome,
+  getBasemapData,
+  setBasemap,
+  getMapViewportInfo,
+  removeEventFromMapMoveEnd,
+  addEventToMapMoveEnd,
 }
 
 export default MapController;

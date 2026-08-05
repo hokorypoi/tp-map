@@ -145,8 +145,9 @@ function addRouteLineAnimation(origin, destination) {
     );
 
     // Update the source with this new data.
-    map.getSource(pointLayerSourceId).setData(point);
-
+    if (map.getSource(pointLayerSourceId)) {
+      map.getSource(pointLayerSourceId).setData(point);
+    }
     // Request the next frame of animation so long the end has not been reached.
     if (counter < steps) {
       requestAnimationFrame(animate);
@@ -162,7 +163,7 @@ function addRouteLineAnimation(origin, destination) {
     point.features[0].geometry.coordinates = origin;
 
     // Update the source layer
-    map.getSource(pointLayerSourceId).setData(point);
+    map.getSource(pointLayerSourceId) && map.getSource(pointLayerSourceId).setData(point);
 
     // Reset the counter
     counter = 0;

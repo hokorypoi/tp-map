@@ -3,6 +3,7 @@
   <toolbar-left-top />
   <list-panel />
   <feature-info-box />
+  <basemap-panel />
 </template>
 
 <script setup>
@@ -12,6 +13,7 @@ import { useQuasar } from 'quasar'
 import ToolbarLeftTop from '@/components-maplibre/bar/toolbar-left-top.vue'
 import listPanel from '@/components-maplibre/panel/list-panel.vue'
 import FeatureInfoBox from '@/components-maplibre/box/feature-info-box.vue'
+import BasemapPanel from '@/components-maplibre/panel/basemap-panel.vue'
 const $q = useQuasar()
 
 onMounted(() => {
