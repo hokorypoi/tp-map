@@ -42,6 +42,6 @@ onUnmounted(() => {
   border-radius: 50%;
   cursor: pointer;
   padding: 0;
-  border: 4px solid rgba(243, 31, 137, 0.8);
+  border: 3px solid rgba(243, 31, 137, 0.6);
 }
 </style>

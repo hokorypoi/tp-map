@@ -50,7 +50,6 @@ function addRouteLineAnimation(origin, destination) {
   var to = turf.point(destination);
 
   const lineDistance = turf.distance(from, to);
-  console.log(lineDistance)
 
   const arc = [];
 

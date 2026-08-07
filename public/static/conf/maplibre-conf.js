@@ -153,7 +153,7 @@
         '/static/imgs/plans/heyan03.jpg',
         '/static/imgs/plans/heyan04.jpg',
       ],
-      startPoint: [116.88840837287398, 38.46610621971257],
+      startPoint: [116.80827217805461, 38.24189733935651],
       lines: [
         {
           name: '流河~青县',

@@ -9,6 +9,8 @@ function addPulsingDotAnimation(point, size = 200, duration = 1000, colorRGB = '
 
   // implementation of StyleImageInterface to draw a pulsing dot icon on the map
   // Search for StyleImageInterface in https://maplibre.org/maplibre-gl-js/docs/API/
+
+
   const pulsingDot = {
     width: size,
     height: size,

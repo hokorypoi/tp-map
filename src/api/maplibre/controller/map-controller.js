@@ -29,6 +29,9 @@ function initMap() {
     zoom: 7,
     center: mapCenter,
     style: basemaps[basemapIndex].style,
+    minZoom: 1,
+    maxZoom: 24,
+    canvasContextAttributes: { antialias: true } // create the gl context with MSAA antialiasing, so custom layers are antialiased
   })
 
   // The `click` event is an example of a `MapMouseEvent`.
@@ -50,6 +53,14 @@ function initMap() {
     //   .addTo(map);
 
   })
+
+
+  // map.on('style.load', () => {
+  //   map.setProjection({
+  //     type: 'globe', // Set projection to globe | mercator
+  //   });
+  // });
+
 
   map.on('moveend', onMapViewportStateChanged);
 }
@@ -105,8 +116,8 @@ async function renderLayers() {
       el.className = 'maplibre-marker';
       el.style.backgroundImage =
         `url('${node.icon || "./static/imgs/avatar/rikka.gif"}')`;
-      el.style.width = `64px`;
-      el.style.height = `64px`;
+      el.style.width = `56px`;
+      el.style.height = `56px`;
 
       el.addEventListener('click', () => {
         console.log('click')
