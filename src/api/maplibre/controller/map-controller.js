@@ -136,7 +136,7 @@ function getMapObject() {
 }
 
 function getDataList() {
-  return dataList.map(r => ({ label: r.name, id: r.id, type: r.type }))
+  return dataList.map(r => ({ label: r.name, id: r.id, type: r.type, lines: r.lines }))
 }
 
 function getDataById(id) {
@@ -163,6 +163,14 @@ function flyToById(id) {
     default:
   }
 
+}
+
+function flyToLine(line) {
+  const lineO = turf.lineString(line.coordinates);
+  const bbox = turf.bbox(lineO);
+  map.fitBounds(bbox, {
+    padding: { top: 80, bottom: 80, left: 80, right: 80 }
+  })
 }
 
 function goHome() {
@@ -227,6 +235,7 @@ const MapController = {
   toggleRouteLineObjects: RouteLineService.toggleRouteLineObjects,
   togglePulsingDotObjects: PulsingDotService.togglePulsingDotObjects,
   flyToById,
+  flyToLine,
   getDataById,
   goHome,
   getBasemapData,
