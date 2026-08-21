@@ -136,7 +136,7 @@ function getMapObject() {
 }
 
 function getDataList() {
-  return dataList.map(r => ({ label: r.name, id: r.id, type: r.type, lines: r.lines }))
+  return dataList.map(r => ({ label: r.name, id: r.id, type: r.type, lines: r.lines, isNew: !!r.isNew }))
 }
 
 function getDataById(id) {
@@ -153,7 +153,7 @@ function flyToById(id) {
         const multiLine = turf.multiLineString(lines.map(r => r.coordinates));
         const bbox = turf.bbox(multiLine);
         map.fitBounds(bbox, {
-          padding: { top: 80, bottom: 80, left: 80, right: 80 }
+          padding: { top: 240, bottom: 240, left: 240, right: 240 }
         })
       }
       break;
@@ -169,7 +169,7 @@ function flyToLine(line) {
   const lineO = turf.lineString(line.coordinates);
   const bbox = turf.bbox(lineO);
   map.fitBounds(bbox, {
-    padding: { top: 80, bottom: 80, left: 80, right: 80 }
+    padding: { top: 240, bottom: 240, left: 240, right: 240 }
   })
 }
 

@@ -8,7 +8,10 @@
               <q-icon :name="`${item.type === 'point' ? 'add_a_photo' : 'forest'}`" size="20px" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ item.label }}</q-item-label>
+              <q-item-label
+                >{{ item.label }}
+                <q-badge v-if="item.isNew" color="red" align="middle" rounded outline>New</q-badge>
+              </q-item-label>
             </q-item-section>
           </q-item>
         </template>
@@ -31,7 +34,12 @@
                 <q-icon :name="`${item.type === 'point' ? 'add_a_photo' : 'forest'}`" size="20px" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>{{ item.label }}</q-item-label>
+                <q-item-label
+                  >{{ item.label }}
+                  <q-badge v-if="item.isNew" color="red" align="middle" rounded outline
+                    >New</q-badge
+                  >
+                </q-item-label>
               </q-item-section>
             </template>
             <template v-for="(line, jIndex) in item.lines" :key="jIndex">
@@ -41,7 +49,7 @@
                     <q-icon name="call_split" size="20px" :style="`color: ${line.color};`" />
                   </q-item-section>
                   <q-item-section>
-                    <q-item-label>{{ line.name }}</q-item-label>
+                    <q-item-label>{{ line.name }} </q-item-label>
                   </q-item-section>
                 </q-item>
               </q-list>
@@ -92,7 +100,7 @@ watch(listPanelOpen, (newValue) => {
   position: absolute;
   top: 50px;
   left: 10px;
-  width: 240px;
+  width: 360px;
   min-height: 100px;
   max-height: calc(100vh - 240px);
   padding: 4px;
