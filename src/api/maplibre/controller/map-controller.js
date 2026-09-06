@@ -1,5 +1,6 @@
 import { Map, setWorkerUrl, Marker } from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import gcoord from 'gcoord';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url'
 import AddLayerService from '../service/add-layer-service';
 import RouteLineService from '../service/route-line-service';
@@ -13,8 +14,13 @@ let mapCenter;
 
 let map;
 
+let mapCrs;
+
 let dataList = [];
 let dataHash = {};
+
+let markersOnMap = [];
+let markersOnMapVisible = true;
 
 let mapOnMapMoveEndEvents = {};
 
@@ -33,6 +39,9 @@ function initMap() {
     maxZoom: 24,
     canvasContextAttributes: { antialias: true } // create the gl context with MSAA antialiasing, so custom layers are antialiased
   })
+
+  const crs = basemaps[basemapIndex].crs;
+  mapCrs = crs;
 
   // The `click` event is an example of a `MapMouseEvent`.
   // Set up an event listener on the map.
@@ -83,10 +92,20 @@ function onMapViewportStateChanged() {
 
 async function renderLayers() {
 
+  // clear markers
+
+  if (markersOnMap && markersOnMap.length) {
+    markersOnMap.forEach(m => {
+      m.remove();
+    })
+    markersOnMap = [];
+  }
+
   dataList = [];
   dataHash = {};
 
-  const { list = [] } = window.appMaplibreConf
+  const { list: ol = [] } = window.appMaplibreConf
+  const list = JSON.parse(JSON.stringify(ol));
 
   AddLayerService.addCircle({ center: mapCenter, radius: 200 })
   PulsingDotService.addPulsingDotAnimation(mapCenter, 160, 500, '76, 175, 80');
@@ -104,7 +123,15 @@ async function renderLayers() {
       const { lines = [], startPoint = [] } = node;
       lines.forEach(line => {
         const { coordinates, color } = line;
-        AddLayerService.addLine({ coordinates: coordinates, color: color });
+
+        const geojson = {
+          type: 'LineString',
+          coordinates: coordinates,
+        };
+
+        gcoord.transform(geojson, gcoord.WGS84, gcoord[mapCrs]);
+
+        AddLayerService.addLine({ coordinates: geojson.coordinates, color: color });
       })
 
       RouteLineService.addRouteLineAnimation(mapCenter, startPoint);
@@ -124,9 +151,18 @@ async function renderLayers() {
       });
 
       // add marker to map
-      new Marker({ element: el })
-        .setLngLat(node.coordinates)
+      const result = gcoord.transform(
+        node.coordinates, // coordinate: [longitude, latitude]
+        gcoord.WGS84, // source CRS
+        gcoord[mapCrs], // target CRS
+      );
+      const marker = new Marker({ element: el })
+        .setLngLat(result)
         .addTo(map);
+
+      marker.setOpacity(markersOnMapVisible ? 1 : 0);
+
+      markersOnMap.push(marker);
     }
   });
 }
@@ -188,6 +224,7 @@ function getBasemapData() {
 function setBasemap(index) {
   const { basemaps = [] } = window.appMaplibreConf
   const style = basemaps[index].style;
+  const crs = basemaps[index].crs;
   // const oldStyle = map.getStyle();
   // const keyWord = 'basemap_';
 
@@ -217,6 +254,7 @@ function setBasemap(index) {
   // }
 
   // map.setStyle(newStyle, { diff: false });
+  mapCrs = crs;
   map.setStyle(style);
   renderLayers();
 }
@@ -227,6 +265,17 @@ function getMapViewportInfo() {
   return { zoom, center };
 }
 
+
+
+function toggleMarkersOnMap() {
+  markersOnMapVisible = !markersOnMapVisible;
+  if (markersOnMap && markersOnMap.length) {
+    markersOnMap.forEach(m => {
+      m.setOpacity(markersOnMapVisible ? 1 : 0);
+    })
+  }
+}
+
 const MapController = {
   initMap,
   getMapObject,
@@ -234,6 +283,7 @@ const MapController = {
   toggleBufferCircle: AddLayerService.toggleBufferCircle,
   toggleRouteLineObjects: RouteLineService.toggleRouteLineObjects,
   togglePulsingDotObjects: PulsingDotService.togglePulsingDotObjects,
+  toggleMarkersOnMap,
   flyToById,
   flyToLine,
   getDataById,

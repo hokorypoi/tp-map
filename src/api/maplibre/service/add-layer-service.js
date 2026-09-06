@@ -62,6 +62,7 @@ function addCircle({ center, radius = 10 }) {
     clearInterval(flashInterval);
   }
 
+
   flashInterval = setInterval(() => {
     if (showBufferCircle) {
       if (map.getLayer(layerId)) {

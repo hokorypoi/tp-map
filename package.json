@@ -16,6 +16,7 @@
   "dependencies": {
     "@quasar/extras": "^2.0.0",
     "dexie": "^4.4.4",
+    "gcoord": "^1.0.7",
     "maplibre-gl": "^6.0.0",
     "pinia": "^4.0.2",
     "quasar": "^2.22.0",

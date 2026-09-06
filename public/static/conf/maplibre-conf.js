@@ -272,6 +272,7 @@
       {
         name: '街道',
         icon: '',
+        crs: 'WGS84',
         style: {
           version: 8,
           sources: {
@@ -293,6 +294,7 @@
       {
         name: '卫星',
         icon: '',
+        crs: 'WGS84',
         style: {
           version: 8,
           sources: {
@@ -314,6 +316,7 @@
       {
         name: '高德矢量|在线',
         icon: 'amap-vector-online.png',
+        crs: 'GCJ02',
         style: {
           "version": 8,
           "sources": {
@@ -341,6 +344,7 @@
       {
         name: '高德卫星|在线',
         icon: 'amap-satellite-online.jpg',
+        crs: 'GCJ02',
         style: {
           "version": 8,
           "sources": {

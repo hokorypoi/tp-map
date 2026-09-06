@@ -12,6 +12,10 @@
       <q-icon name="airline_stops" :size="iconSize" />
       <q-tooltip>Route</q-tooltip>
     </q-btn>
+    <q-btn dense @click="MapController.toggleMarkersOnMap()">
+      <q-icon name="place" :size="iconSize" />
+      <q-tooltip>Marker</q-tooltip>
+    </q-btn>
     <q-btn dense @click="MapController.togglePulsingDotObjects()">
       <q-icon name="rss_feed" :size="iconSize" />
       <q-tooltip>PulsingDot</q-tooltip>
